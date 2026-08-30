@@ -43,6 +43,11 @@ yarn-error.*
 # local-only planning docs, not part of the shipped project
 /report.md
 /IMPLEMENTATION_PLAN.md
+/HANDOFF.md
 
 # IDE metadata
 /.idea
+
+
+# Design
+Men's Health App Design-handoff 

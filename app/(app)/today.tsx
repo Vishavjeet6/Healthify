@@ -3,15 +3,17 @@ import { router, useFocusEffect } from 'expo-router';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Pressable, Text, View } from 'react-native';
 
-import { countAssessments } from '../../src/db/queries/assessments';
+import { countAssessments, listAssessments } from '../../src/db/queries/assessments';
 import { upsertTodayLog } from '../../src/db/queries/dailyLogs';
 import { ensureProgramState, type ProgramState } from '../../src/db/queries/programState';
 import { getSessionForDay, TOTAL_PROGRAM_DAYS } from '../../src/content/loader';
 import type { Session } from '../../src/content/schema';
+import { blockChipLabel } from '../../src/features/session/blockLabel';
 import { useEntitlement } from '../../src/features/paywall/useEntitlement';
 import { isAssessmentDue } from '../../src/features/progress/nextAssessment';
 import { Button } from '../../src/ui/components/Button';
 import { Card } from '../../src/ui/components/Card';
+import { DemoPlaceholder } from '../../src/ui/components/DemoPlaceholder';
 import { Screen } from '../../src/ui/components/Screen';
 import { radius, spacing, type, useTheme } from '../../src/ui/theme';
 
@@ -23,6 +25,7 @@ export default function Today() {
   const [state, setState] = useState<ProgramState | null>(null);
   const [session, setSession] = useState<Session | undefined>(undefined);
   const [assessmentsTaken, setAssessmentsTaken] = useState(0);
+  const [latestScore, setLatestScore] = useState<number | null>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -31,6 +34,8 @@ export default function Today() {
         setState(s);
         setSession(getSessionForDay(s.currentDay));
         setAssessmentsTaken(await countAssessments(db));
+        const assessments = await listAssessments(db);
+        setLatestScore(assessments[assessments.length - 1]?.totalScore ?? null);
       })();
     }, [db]),
   );
@@ -45,51 +50,84 @@ export default function Today() {
   const locked = !entitlement.active;
   const daysIn = state.currentDay - 1;
   const dueForAssessment = isAssessmentDue(assessmentsTaken, state.currentDay);
+  const weekNumber = Math.ceil(state.currentDay / 7);
+  const dayInWeek = ((state.currentDay - 1) % 7) + 1;
 
   return (
     <Screen>
-      <View style={{ gap: spacing.xs }}>
-        <Text style={[type.caption, { color: theme.textTertiary }]}>Day {state.currentDay}</Text>
-        <Text style={[type.displayMd, { color: theme.textPrimary }]}>
-          {finished ? "You've completed the program" : session?.title ?? 'Loading…'}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Text style={[type.mono, { color: theme.textTertiary }]}>
+          WEEK {weekNumber} · DAY {dayInWeek}
         </Text>
-        {!finished && session && (
-          <Text style={[type.body, { color: theme.textSecondary }]}>{session.intent}</Text>
-        )}
+        <WeekDots theme={theme} dayInWeek={dayInWeek} />
       </View>
 
-      {!finished && (
-        <Card theme={theme}>
-          {locked ? (
-            <View style={{ gap: spacing.md }}>
-              <Text style={[type.body, { color: theme.textSecondary }]}>
-                The 12-week program is part of membership. The pelvic floor trainer, your first
-                check-in, and two guides are free — start there, or unlock the full program now.
+      {!finished && session && !locked && (
+        <View style={{ borderRadius: radius.lg, overflow: 'hidden', backgroundColor: theme.surface }}>
+          <DemoPlaceholder
+            theme={theme}
+            label={`SESSION PREVIEW · ${session.blocks.length} BLOCK${session.blocks.length === 1 ? '' : 'S'}`}
+            height={118}
+            flushTop
+          />
+          <View style={{ padding: spacing.lg, gap: spacing.md }}>
+            <View style={{ gap: 6 }}>
+              <Text style={[type.displayMd, { color: theme.textPrimary, fontSize: 25, lineHeight: 31 }]}>
+                {session.title}
               </Text>
-              <Button
-                theme={theme}
-                label="See membership"
-                onPress={() => router.push('/paywall')}
-              />
+              <Text style={[type.body, { color: theme.textSecondary }]}>{session.intent}</Text>
             </View>
-          ) : (
-            <View style={{ gap: spacing.md }}>
-              <Text style={[type.caption, { color: theme.textTertiary }]}>
-                {session?.estimatedMinutes ?? 0} min
-              </Text>
-              <Button
-                theme={theme}
-                label="Begin session"
-                onPress={() => session && router.push(`/session/${session.id}`)}
-              />
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
+              {session.blocks.map((block) => (
+                <View
+                  key={block.id}
+                  style={{
+                    borderRadius: radius.pill,
+                    paddingVertical: 7,
+                    paddingHorizontal: 12,
+                    backgroundColor: `${theme.textPrimary}12`,
+                  }}
+                >
+                  <Text style={[type.caption, { color: theme.textSecondary }]}>{blockChipLabel(block)}</Text>
+                </View>
+              ))}
             </View>
+            <Button
+              theme={theme}
+              label={`Begin — ${session.estimatedMinutes} min`}
+              onPress={() => router.push(`/session/${session.id}`)}
+            />
+          </View>
+        </View>
+      )}
+
+      {(finished || locked) && (
+        <View style={{ gap: spacing.xs }}>
+          <Text style={[type.displayMd, { color: theme.textPrimary }]}>
+            {finished ? "You've completed the program" : session?.title ?? 'Loading…'}
+          </Text>
+          {!finished && session && (
+            <Text style={[type.body, { color: theme.textSecondary }]}>{session.intent}</Text>
           )}
+        </View>
+      )}
+
+      {!finished && locked && (
+        <Card theme={theme}>
+          <View style={{ gap: spacing.md }}>
+            <Text style={[type.body, { color: theme.textSecondary }]}>
+              The 12-week program is part of membership. The pelvic floor trainer, your first
+              check-in, and two guides are free — start there, or unlock the full program now.
+            </Text>
+            <Button theme={theme} label="See membership" onPress={() => router.push('/paywall')} />
+          </View>
         </Card>
       )}
 
       <View style={{ flexDirection: 'row', gap: spacing.md }}>
-        <Stat theme={theme} label="Streak" value={String(state.streakCount)} />
-        <Stat theme={theme} label="Days in" value={String(Math.max(daysIn, 0))} />
+        <Stat theme={theme} label="STREAK" value={String(state.streakCount)} />
+        <Stat theme={theme} label="DAYS IN" value={String(Math.max(daysIn, 0))} />
+        {!locked && latestScore != null && <Stat theme={theme} label="SCORE" value={String(latestScore)} accent />}
       </View>
 
       {dueForAssessment && (
@@ -118,21 +156,55 @@ export default function Today() {
   );
 }
 
+function WeekDots({ theme, dayInWeek }: { theme: ReturnType<typeof useTheme>; dayInWeek: number }) {
+  return (
+    <View style={{ flexDirection: 'row', gap: 5, alignItems: 'center' }}>
+      {Array.from({ length: 7 }).map((_, i) => {
+        const day = i + 1;
+        const done = day < dayInWeek;
+        const current = day === dayInWeek;
+        const bg = done ? theme.accent : current ? 'transparent' : theme.textTertiary;
+        return (
+          <View
+            key={day}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: radius.pill,
+              backgroundColor: bg,
+              borderWidth: current ? 1.5 : 0,
+              borderColor: theme.accent,
+              opacity: done || current ? 1 : 0.35,
+            }}
+          />
+        );
+      })}
+    </View>
+  );
+}
+
 function Stat({
   theme,
   label,
   value,
+  accent,
 }: {
   theme: ReturnType<typeof useTheme>;
   label: string;
   value: string;
+  accent?: boolean;
 }) {
   return (
-    <Card theme={theme} style={{ flex: 1, alignItems: 'center', gap: 4 }}>
-      <Text style={[type.displayMd, { color: theme.accent, fontVariant: ['tabular-nums'] }]}>
+    <Card theme={theme} style={{ flex: 1, gap: 2 }}>
+      <Text style={[type.mono, { color: theme.textTertiary }]}>{label}</Text>
+      <Text
+        style={[
+          type.displayMd,
+          { color: accent ? theme.accent : theme.textPrimary, fontVariant: ['tabular-nums'] },
+        ]}
+      >
         {value}
       </Text>
-      <Text style={[type.caption, { color: theme.textTertiary }]}>{label}</Text>
     </Card>
   );
 }
@@ -152,7 +224,7 @@ function QuickLog({
 
   return (
     <View style={{ gap: spacing.sm }}>
-      <Text style={[type.caption, { color: theme.textTertiary }]}>Quick log</Text>
+      <Text style={[type.mono, { color: theme.textTertiary }]}>LAST NIGHT</Text>
       <View style={{ flexDirection: 'row', gap: spacing.sm }}>
         <Chip
           theme={theme}
@@ -191,12 +263,11 @@ function Chip({
     <Pressable
       onPress={onPress}
       style={({ pressed }) => ({
-        borderWidth: 1,
-        borderColor: theme.border,
-        borderRadius: radius.pill,
-        paddingVertical: spacing.sm,
-        paddingHorizontal: spacing.md,
-        backgroundColor: pressed ? theme.surfaceRaised : theme.surface,
+        flex: 1,
+        alignItems: 'center',
+        borderRadius: radius.md,
+        paddingVertical: spacing.md,
+        backgroundColor: pressed ? theme.border : theme.surfaceRaised,
       })}
     >
       <Text style={[type.bodySmall, { color: theme.textPrimary }]}>{label}</Text>

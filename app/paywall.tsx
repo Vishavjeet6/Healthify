@@ -39,7 +39,7 @@ export default function Paywall() {
   }
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ gap: spacing.sm }}>
         <Text style={[type.displayMd, { color: theme.textPrimary }]}>Full membership</Text>
         <Text style={[type.body, { color: theme.textSecondary }]}>

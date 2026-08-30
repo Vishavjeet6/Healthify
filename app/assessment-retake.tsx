@@ -33,7 +33,7 @@ export default function AssessmentRetake() {
   }
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ gap: spacing.sm }}>
         <Text style={[type.caption, { color: theme.textTertiary }]}>
           Question {qIndex + 1} of {IIEF5_QUESTIONS.length}

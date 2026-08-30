@@ -6,7 +6,7 @@ import { spacing, type, useTheme } from '../../../src/ui/theme';
 export default function Privacy() {
   const theme = useTheme();
   return (
-    <Screen>
+    <Screen back>
       <Text style={[type.displayMd, { color: theme.textPrimary }]}>Privacy</Text>
 
       <View style={{ gap: spacing.sm }}>

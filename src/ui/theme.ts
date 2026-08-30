@@ -1,4 +1,4 @@
-import { useColorScheme } from 'react-native';
+import { Platform, useColorScheme } from 'react-native';
 
 /**
  * Design tokens. See IMPLEMENTATION_PLAN.md "Design system".
@@ -55,7 +55,31 @@ const light: ThemeTokens = {
   alertOn: '#FFF3EF',
 };
 
+/**
+ * Warm onboarding-only alternate treatment (redesign option 1b). Not a
+ * light/dark mode — a deliberate stylistic direction offered alongside
+ * the default ("cool") onboarding, selected by `useOnboardingVariant`,
+ * not by system color scheme. Kept out of `themes` so it never leaks
+ * into `useTheme()` / the rest of the app.
+ */
+const warm: ThemeTokens = {
+  ground: '#12100D',
+  surface: '#1A1713',
+  surfaceRaised: '#221E17',
+  border: '#2C2620',
+  textPrimary: '#F0EDE6',
+  textSecondary: '#B5AEA1',
+  textTertiary: '#8C8578',
+  accent: '#D8A64E',
+  accentOn: '#241705',
+  caution: '#D8A64E',
+  cautionOn: '#241705',
+  alert: '#C97B68',
+  alertOn: '#210A04',
+};
+
 export const themes = { dark, light };
+export const onboardingPalettes = { cool: dark, warm };
 
 export function useTheme(): ThemeTokens {
   const scheme = useColorScheme();
@@ -86,4 +110,10 @@ export const type = {
   bodySmall: { fontFamily: 'System', fontSize: 14, lineHeight: 20 },
   caption: { fontFamily: 'System', fontSize: 12, lineHeight: 16 },
   numeral: { fontFamily: 'Newsreader_500Medium', fontVariant: ['tabular-nums'] as const },
+  /** Uppercase eyebrow / stat-label / step-counter captions (WEEK 1 · DAY 3, SETS DONE…). */
+  mono: {
+    fontFamily: Platform.select({ ios: 'Menlo', android: 'monospace', default: 'monospace' }),
+    fontSize: 11,
+    letterSpacing: 0.7,
+  },
 } as const;

@@ -10,6 +10,13 @@ import { Screen } from '../../src/ui/components/Screen';
 import { radius, spacing, type, useTheme } from '../../src/ui/theme';
 
 const SCALE = [1, 2, 3, 4, 5];
+const SCALE_LABEL: Record<number, string> = {
+  1: 'Very low',
+  2: 'Low',
+  3: 'Moderate',
+  4: 'High',
+  5: 'Very high',
+};
 
 export default function Assessment() {
   const theme = useTheme();
@@ -33,7 +40,7 @@ export default function Assessment() {
   }
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ gap: spacing.sm }}>
         <Text style={[type.caption, { color: theme.textTertiary }]}>
           Question {qIndex + 1} of {IIEF5_QUESTIONS.length}
@@ -61,9 +68,7 @@ export default function Assessment() {
             })}
           >
             <Text style={[type.title, { color: theme.accent, width: 24 }]}>{v}</Text>
-            <Text style={[type.body, { color: theme.textPrimary }]}>
-              {v === 1 ? 'Low' : v === 5 ? 'High' : ''}
-            </Text>
+            <Text style={[type.body, { color: theme.textPrimary }]}>{SCALE_LABEL[v]}</Text>
           </Pressable>
         ))}
       </View>

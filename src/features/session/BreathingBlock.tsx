@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 
 import { ProgressRing } from '../../ui/components/ProgressRing';
 import { Button } from '../../ui/components/Button';
+import { DemoPlaceholder } from '../../ui/components/DemoPlaceholder';
 import { spacing, type, useTheme } from '../../ui/theme';
 import type { Block } from '../../content/schema';
 
@@ -68,11 +69,14 @@ export function BreathingBlock({ block, onDone }: { block: BreathingBlockType; o
 
   if (!started) {
     return (
-      <View style={{ gap: spacing.md, alignItems: 'center' }}>
-        <Text style={[type.title, { color: theme.textPrimary }]}>{block.label}</Text>
-        <Text style={[type.bodySmall, { color: theme.textTertiary }]}>
-          {block.cycles} slow cycles
-        </Text>
+      <View style={{ gap: spacing.lg, alignItems: 'center' }}>
+        <DemoPlaceholder theme={theme} label="GUIDED · SILENT" height={196} />
+        <View style={{ gap: spacing.sm, alignItems: 'center' }}>
+          <Text style={[type.title, { color: theme.textPrimary }]}>{block.label}</Text>
+          <Text style={[type.bodySmall, { color: theme.textTertiary }]}>
+            {block.cycles} slow cycles
+          </Text>
+        </View>
         <Button theme={theme} label="Begin" onPress={() => setStarted(true)} />
       </View>
     );

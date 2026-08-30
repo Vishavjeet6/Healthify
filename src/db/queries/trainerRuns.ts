@@ -79,3 +79,12 @@ export async function countTrainerRuns(db: SQLiteDatabase): Promise<number> {
   const row = await db.getFirstAsync<{ n: number }>('SELECT COUNT(*) as n FROM trainer_runs');
   return row?.n ?? 0;
 }
+
+/** Runs completed in the trailing 7 days (rolling, not calendar-week). */
+export async function countTrainerRunsSince(db: SQLiteDatabase, sinceIso: string): Promise<number> {
+  const row = await db.getFirstAsync<{ n: number }>(
+    'SELECT COUNT(*) as n FROM trainer_runs WHERE completed_at >= ?',
+    sinceIso,
+  );
+  return row?.n ?? 0;
+}

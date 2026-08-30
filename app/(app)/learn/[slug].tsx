@@ -13,14 +13,14 @@ export default function LearnDetail() {
 
   if (!piece) {
     return (
-      <Screen>
+      <Screen back>
         <Text style={[type.body, { color: theme.textPrimary }]}>Not found.</Text>
       </Screen>
     );
   }
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ gap: spacing.md }}>
         <Text style={[type.displayMd, { color: theme.textPrimary }]}>{piece.title}</Text>
         <Text style={[type.body, { color: theme.textSecondary, lineHeight: 26 }]}>{piece.body}</Text>

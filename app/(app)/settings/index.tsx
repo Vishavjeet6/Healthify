@@ -49,6 +49,7 @@ export default function SettingsIndex() {
       </Card>
 
       <View style={{ gap: spacing.sm }}>
+        <Button theme={theme} variant="secondary" label="Your profile" onPress={() => router.push('/(app)/settings/profile')} />
         <Button theme={theme} variant="secondary" label="Back up my progress" onPress={() => router.push('/(app)/settings/backup')} />
         <Button theme={theme} variant="secondary" label="Privacy" onPress={() => router.push('/(app)/settings/privacy')} />
         {__DEV__ && (

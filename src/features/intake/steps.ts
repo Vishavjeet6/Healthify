@@ -12,18 +12,13 @@ type BaseStep = {
 export type NumberStep = BaseStep & { kind: 'number'; placeholder: string; optional?: boolean };
 export type BooleanStep = BaseStep & { kind: 'boolean' };
 export type ChoiceStep = BaseStep & { kind: 'choice'; options: { value: string; label: string }[] };
+export type BmiStep = BaseStep & { kind: 'bmi' };
 
-export type IntakeStep = NumberStep | BooleanStep | ChoiceStep;
+export type IntakeStep = NumberStep | BooleanStep | ChoiceStep | BmiStep;
 
 export const INTAKE_STEPS: IntakeStep[] = [
   { id: 'age', kind: 'number', prompt: 'What is your age?', placeholder: 'Age in years' },
-  {
-    id: 'bmi',
-    kind: 'number',
-    prompt: 'Your approximate BMI, if you know it (optional).',
-    placeholder: 'BMI',
-    optional: true,
-  },
+  { id: 'bmi', kind: 'bmi', prompt: 'What is your BMI?' },
   { id: 'smoker', kind: 'boolean', prompt: 'Do you currently smoke?' },
   {
     id: 'sedentary',

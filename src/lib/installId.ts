@@ -1,5 +1,6 @@
 import * as Crypto from 'expo-crypto';
 import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 /**
  * install_id is the join key for every analytics event and, later, for
@@ -12,22 +13,39 @@ import * as SecureStore from 'expo-secure-store';
  * because app data can be cleared (wiping SQLite) while the keychain
  * entry survives, or vice versa on some Android OEM skins — without a
  * fixed precedence, cohorts silently fragment across reinstalls.
+ *
+ * expo-secure-store has no web implementation (no keychain equivalent
+ * in a browser), so web falls back to localStorage — fine here since
+ * install_id isn't a secret.
  */
 const SECURE_STORE_KEY = 'foundation.install_id';
 
 let cached: string | null = null;
 
+async function getStoredInstallId(): Promise<string | null> {
+  if (Platform.OS === 'web') return window.localStorage.getItem(SECURE_STORE_KEY);
+  return SecureStore.getItemAsync(SECURE_STORE_KEY);
+}
+
+async function persistInstallId(value: string): Promise<void> {
+  if (Platform.OS === 'web') {
+    window.localStorage.setItem(SECURE_STORE_KEY, value);
+    return;
+  }
+  await SecureStore.setItemAsync(SECURE_STORE_KEY, value);
+}
+
 export async function getOrCreateInstallId(): Promise<string> {
   if (cached) return cached;
 
-  const existing = await SecureStore.getItemAsync(SECURE_STORE_KEY);
+  const existing = await getStoredInstallId();
   if (existing) {
     cached = existing;
     return existing;
   }
 
   const fresh = Crypto.randomUUID();
-  await SecureStore.setItemAsync(SECURE_STORE_KEY, fresh);
+  await persistInstallId(fresh);
   cached = fresh;
   return fresh;
 }

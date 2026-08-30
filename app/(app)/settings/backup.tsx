@@ -23,7 +23,7 @@ export default function Backup() {
 
   if (optedIn) {
     return (
-      <Screen>
+      <Screen back>
         <Text style={[type.displayMd, { color: theme.textPrimary }]}>Backup is on</Text>
         <Card theme={theme}>
           <Text style={[type.body, { color: theme.textSecondary }]}>
@@ -45,7 +45,7 @@ export default function Backup() {
   }
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ gap: spacing.sm }}>
         <Text style={[type.displayMd, { color: theme.textPrimary }]}>Back up your progress</Text>
         <Text style={[type.body, { color: theme.textSecondary }]}>

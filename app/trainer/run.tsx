@@ -1,6 +1,6 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useSQLiteContext } from 'expo-sqlite';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { getProtocol } from '../../src/content/loader';
 import { listTrainerRuns } from '../../src/db/queries/trainerRuns';
@@ -12,41 +12,45 @@ import { nextLevel, shouldSuggestAdvance } from '../../src/features/trainer/prog
 import { useIsolationSeen } from '../../src/features/trainer/useIsolationSeen';
 import { usePelvicFloorMode } from '../../src/features/trainer/usePelvicFloorMode';
 import { Screen } from '../../src/ui/components/Screen';
-import { spacing, type, useTheme } from '../../src/ui/theme';
 
 const PROTOCOL_ID = 'pelvic-floor';
 
 export default function TrainerRun() {
-  const theme = useTheme();
   const db = useSQLiteContext();
+  const params = useLocalSearchParams<{ demo?: string; relearn?: string; regate?: string }>();
   const { mode, level, submitGate, advanceLevel, refresh } = usePelvicFloorMode();
   const { seen: isolationSeen, markSeen } = useIsolationSeen();
 
   if (mode === 'loading' || isolationSeen === null) return <Screen />;
 
-  if (!isolationSeen) {
+  // "Finding the muscle" from Trainer home replays this screen without
+  // touching the stored isolationSeen flag — it's a re-watch, not a reset.
+  if (!isolationSeen || params.relearn === '1') {
     return (
-      <Screen>
-        <IsolationCoachingScreen onDone={markSeen} />
+      <Screen back>
+        <IsolationCoachingScreen onDone={params.relearn === '1' ? () => router.back() : markSeen} />
       </Screen>
     );
   }
 
-  if (mode === 'needs-gate') {
+  // "Relaxation mode" from Trainer home routes back through the real
+  // hypertonic gate rather than bypassing it — submitGate still decides.
+  if (mode === 'needs-gate' || params.regate === '1') {
     return (
-      <Screen>
+      <Screen back>
         <HypertonicGateScreen onSubmit={(answers) => submitGate(answers)} />
       </Screen>
     );
   }
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <PelvicRunner
           protocolId={PROTOCOL_ID}
           level={level}
           downTraining={mode === 'downtraining'}
+          showDemo={params.demo !== '0'}
           onFinished={async () => {
             await track(db, 'trainer_run_finished', { level, mode });
             if (mode === 'strength') {

@@ -38,7 +38,7 @@ export default function Baseline() {
   }, [db]);
 
   return (
-    <Screen>
+    <Screen back>
       <View style={{ gap: spacing.lg }}>
         <Text style={[type.displayMd, { color: theme.textPrimary }]}>Your starting point</Text>
 

@@ -8,8 +8,9 @@ import { isSessionCompleted, recordSessionCompletion } from '../../src/db/querie
 import { ensureProgramState, recordDayCompleted } from '../../src/db/queries/programState';
 import { track } from '../../src/features/analytics';
 import { BlockRenderer } from '../../src/features/session/BlockRenderer';
+import { blockKindLabel } from '../../src/features/session/blockLabel';
 import { Screen } from '../../src/ui/components/Screen';
-import { spacing, type, useTheme } from '../../src/ui/theme';
+import { radius, spacing, type, useTheme } from '../../src/ui/theme';
 
 export default function SessionPlayer() {
   const theme = useTheme();
@@ -26,7 +27,7 @@ export default function SessionPlayer() {
 
   if (!session) {
     return (
-      <Screen>
+      <Screen back>
         <Text style={[type.body, { color: theme.textPrimary }]}>Session not found.</Text>
       </Screen>
     );
@@ -64,10 +65,23 @@ export default function SessionPlayer() {
   }
 
   return (
-    <Screen>
-      <View style={{ gap: spacing.xs }}>
-        <Text style={[type.caption, { color: theme.textTertiary }]}>
-          {blockIndex + 1} of {session.blocks.length}
+    <Screen back>
+      <View style={{ gap: spacing.md }}>
+        <View style={{ flexDirection: 'row', gap: 6 }}>
+          {session.blocks.map((_, i) => (
+            <View
+              key={i}
+              style={{
+                flex: 1,
+                height: 3,
+                borderRadius: radius.sm,
+                backgroundColor: i <= blockIndex ? theme.accent : theme.border,
+              }}
+            />
+          ))}
+        </View>
+        <Text style={[type.mono, { color: theme.textTertiary }]}>
+          BLOCK {blockIndex + 1} · {blockKindLabel(block.kind)}
         </Text>
       </View>
       <View style={{ flex: 1, justifyContent: 'center' }}>

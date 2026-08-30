@@ -40,6 +40,7 @@ export default function AppTabsLayout() {
         options={{ title: 'Settings', tabBarIcon: ({ color }) => <TabIcon symbol="⋯" color={color} /> }}
       />
       <Tabs.Screen name="learn/[slug]" options={{ href: null }} />
+      <Tabs.Screen name="settings/profile" options={{ href: null }} />
       <Tabs.Screen name="settings/backup" options={{ href: null }} />
       <Tabs.Screen name="settings/privacy" options={{ href: null }} />
       <Tabs.Screen name="settings/debug" options={{ href: null }} />
