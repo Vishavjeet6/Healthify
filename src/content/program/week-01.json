@@ -1,0 +1,187 @@
+{
+  "week": 1,
+  "sessions": [
+    {
+      "id": "w01-d01",
+      "week": 1,
+      "day": 1,
+      "title": "Starting point",
+      "intent": "Understand how this program works",
+      "estimatedMinutes": 6,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w01-d01-intro",
+          "body": "This is a 12-week program built around a simple idea: sexual performance responds to training the same way strength or endurance does. Nothing here involves medication, a consultation, or anyone else seeing your data. It's you, working through a structured program at your own pace.\n\nThe program has three threads that run in parallel: pelvic floor training, body-level changes (movement, sleep, alcohol), and mind-level changes (breathing, easing performance pressure). Most sessions take 5–10 minutes.\n\nMissing a day doesn't cost you anything — you'll pick up right where you left off, not where the calendar says you should be.",
+          "claims": ["w01-d01-intro-approach"]
+        },
+        {
+          "kind": "breathing",
+          "id": "w01-d01-breath",
+          "label": "A slower breath",
+          "pattern": { "inhale": 4, "hold": 4, "exhale": 6, "holdOut": 2 },
+          "cycles": 4
+        },
+        {
+          "kind": "reflect",
+          "id": "w01-d01-reflect",
+          "prompt": "In a sentence, what made you download this rather than something else?",
+          "storeKey": "reflect.w01d01.motivation"
+        }
+      ]
+    },
+    {
+      "id": "w01-d02",
+      "week": 1,
+      "day": 2,
+      "title": "Finding the muscle",
+      "intent": "Learn to isolate the pelvic floor before training it",
+      "estimatedMinutes": 8,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w01-d02-isolation",
+          "body": "Before any training, you need to find the right muscle — most people who try pelvic floor exercises on their own never do, and end up working the wrong thing for weeks.\n\nAn easy way in: next time you're urinating, try to stop the flow partway through, then let it go again. The muscle that does that is the one you're training. Don't make a habit of doing this during urination itself — it's a one-time locator, not a drill.\n\nOnce you can feel it: you should notice a lift-and-squeeze, roughly between your sit bones. Your stomach, thighs, and glutes should stay relaxed — if your whole body is tensing, you've found the wrong muscle.\n\nIf you can't feel anything distinct after a few tries, that's common and not a problem — the next few sessions will keep giving you ways in.",
+          "claims": ["w01-d02-isolation-cue"]
+        },
+        {
+          "kind": "log",
+          "id": "w01-d02-log",
+          "fields": ["morningErection"]
+        }
+      ]
+    },
+    {
+      "id": "w01-d03",
+      "week": 1,
+      "day": 3,
+      "title": "First set",
+      "intent": "Run your first guided pelvic floor set",
+      "estimatedMinutes": 7,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "pelvic",
+          "id": "w01-d03-pelvic",
+          "protocolId": "pelvic-floor",
+          "level": 1
+        },
+        {
+          "kind": "reflect",
+          "id": "w01-d03-reflect",
+          "prompt": "Could you feel the muscle clearly, or was it vague?",
+          "storeKey": "reflect.w01d03.clarity"
+        }
+      ]
+    },
+    {
+      "id": "w01-d04",
+      "week": 1,
+      "day": 4,
+      "title": "Sleep and blood flow",
+      "intent": "See why sleep is part of a sexual performance program",
+      "estimatedMinutes": 6,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w01-d04-sleep",
+          "body": "It's not an obvious connection, but sleep is one of the more consistent factors in sexual performance research. Erections partly depend on healthy blood vessel function, and poor sleep is linked to lower testosterone and reduced blood vessel responsiveness over time.\n\nYou don't need a perfect routine. The aim here is just to notice your pattern — the log below takes five seconds and builds a picture over the coming weeks that you'll see on your progress chart.",
+          "claims": ["w01-d04-sleep-link"]
+        },
+        {
+          "kind": "log",
+          "id": "w01-d04-log",
+          "fields": ["sleep"]
+        },
+        {
+          "kind": "pelvic",
+          "id": "w01-d04-pelvic",
+          "protocolId": "pelvic-floor",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "w01-d05",
+      "week": 1,
+      "day": 5,
+      "title": "Alcohol, honestly",
+      "intent": "Understand alcohol's short-term effect without cutting anything out",
+      "estimatedMinutes": 6,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w01-d05-alcohol",
+          "body": "Alcohol is a depressant — in the short term it dampens the nervous system signals involved in arousal, on top of any longer-term effects on blood flow. Most men have noticed this at some point without connecting it to a pattern.\n\nThis program isn't asking you to quit anything. The daily log just tracks drinks alongside your other numbers, so if there's a pattern for you specifically, it becomes visible instead of anecdotal.",
+          "claims": ["w01-d05-alcohol-link"]
+        },
+        {
+          "kind": "log",
+          "id": "w01-d05-log",
+          "fields": ["alcohol"]
+        },
+        {
+          "kind": "breathing",
+          "id": "w01-d05-breath",
+          "label": "Wind-down breath",
+          "pattern": { "inhale": 4, "hold": 2, "exhale": 6, "holdOut": 0 },
+          "cycles": 5
+        }
+      ]
+    },
+    {
+      "id": "w01-d06",
+      "week": 1,
+      "day": 6,
+      "title": "Second set",
+      "intent": "Build consistency with a second guided set",
+      "estimatedMinutes": 7,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "pelvic",
+          "id": "w01-d06-pelvic",
+          "protocolId": "pelvic-floor",
+          "level": 1
+        },
+        {
+          "kind": "log",
+          "id": "w01-d06-log",
+          "fields": ["morningErection", "sleep"]
+        }
+      ]
+    },
+    {
+      "id": "w01-d07",
+      "week": 1,
+      "day": 7,
+      "title": "Week one, done",
+      "intent": "Close the week and see what's next",
+      "estimatedMinutes": 6,
+      "status": "produced",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w01-d07-close",
+          "body": "One week in. The foundation phase runs through week four — the aim isn't intensity yet, it's building a pattern you'll actually keep. From next week, sets get a little longer and the breathing work shifts toward performance-anxiety situations specifically rather than general wind-down.\n\nIf you've missed a day already, that's normal and doesn't reset anything — you're exactly where you are."
+        },
+        {
+          "kind": "pelvic",
+          "id": "w01-d07-pelvic",
+          "protocolId": "pelvic-floor",
+          "level": 1
+        },
+        {
+          "kind": "reflect",
+          "id": "w01-d07-reflect",
+          "prompt": "What's one thing you noticed about yourself this week?",
+          "storeKey": "reflect.w01d07.noticing"
+        }
+      ]
+    }
+  ]
+}

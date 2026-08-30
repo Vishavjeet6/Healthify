@@ -39,3 +39,10 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# local-only planning docs, not part of the shipped project
+/report.md
+/IMPLEMENTATION_PLAN.md
+
+# IDE metadata
+/.idea

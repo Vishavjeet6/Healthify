@@ -1,0 +1,117 @@
+{
+  "week": 2,
+  "sessions": [
+    {
+      "id": "w02-d01",
+      "week": 2,
+      "day": 1,
+      "title": "Foundation — Week 2, Day 1",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d01-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w02-d02",
+      "week": 2,
+      "day": 2,
+      "title": "Foundation — Week 2, Day 2",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d02-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w02-d03",
+      "week": 2,
+      "day": 3,
+      "title": "Foundation — Week 2, Day 3",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d03-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w02-d04",
+      "week": 2,
+      "day": 4,
+      "title": "Foundation — Week 2, Day 4",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d04-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w02-d05",
+      "week": 2,
+      "day": 5,
+      "title": "Foundation — Week 2, Day 5",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d05-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w02-d06",
+      "week": 2,
+      "day": 6,
+      "title": "Foundation — Week 2, Day 6",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d06-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w02-d07",
+      "week": 2,
+      "day": 7,
+      "title": "Foundation — Week 2, Day 7",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w02-d07-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    }
+  ]
+}

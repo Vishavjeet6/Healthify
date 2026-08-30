@@ -1,0 +1,117 @@
+{
+  "week": 5,
+  "sessions": [
+    {
+      "id": "w05-d01",
+      "week": 5,
+      "day": 1,
+      "title": "Load — Week 5, Day 1",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d01-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w05-d02",
+      "week": 5,
+      "day": 2,
+      "title": "Load — Week 5, Day 2",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d02-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w05-d03",
+      "week": 5,
+      "day": 3,
+      "title": "Load — Week 5, Day 3",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d03-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w05-d04",
+      "week": 5,
+      "day": 4,
+      "title": "Load — Week 5, Day 4",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d04-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w05-d05",
+      "week": 5,
+      "day": 5,
+      "title": "Load — Week 5, Day 5",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d05-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w05-d06",
+      "week": 5,
+      "day": 6,
+      "title": "Load — Week 5, Day 6",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d06-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    },
+    {
+      "id": "w05-d07",
+      "week": 5,
+      "day": 7,
+      "title": "Load — Week 5, Day 7",
+      "intent": "Part of the full 12-week program",
+      "estimatedMinutes": 8,
+      "status": "stub",
+      "blocks": [
+        {
+          "kind": "read",
+          "id": "w05-d07-stub",
+          "body": "This session unlocks as part of the complete program."
+        }
+      ]
+    }
+  ]
+}

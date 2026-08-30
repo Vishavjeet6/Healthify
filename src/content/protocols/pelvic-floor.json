@@ -1,0 +1,54 @@
+{
+  "id": "pelvic-floor",
+  "name": "Pelvic floor training",
+  "levels": [
+    {
+      "level": 1,
+      "label": "Level 1 — Foundation",
+      "holdS": 3,
+      "restS": 6,
+      "reps": 8,
+      "sets": 2,
+      "advanceAfterRuns": 5,
+      "advanceMaxDifficulty": 3
+    },
+    {
+      "level": 2,
+      "label": "Level 2 — Building",
+      "holdS": 5,
+      "restS": 8,
+      "reps": 10,
+      "sets": 2,
+      "advanceAfterRuns": 6,
+      "advanceMaxDifficulty": 3
+    },
+    {
+      "level": 3,
+      "label": "Level 3 — Strength",
+      "holdS": 8,
+      "restS": 10,
+      "reps": 10,
+      "sets": 3,
+      "advanceAfterRuns": 7,
+      "advanceMaxDifficulty": 3
+    },
+    {
+      "level": 4,
+      "label": "Level 4 — Endurance",
+      "holdS": 10,
+      "restS": 10,
+      "reps": 12,
+      "sets": 3,
+      "advanceAfterRuns": 8,
+      "advanceMaxDifficulty": 3
+    }
+  ],
+  "downTraining": {
+    "label": "Relaxation focus",
+    "description": "For a pelvic floor that is already tight rather than weak. Long, slow releases — no strong squeezing.",
+    "holdS": 3,
+    "restS": 12,
+    "reps": 6,
+    "sets": 2
+  }
+}
